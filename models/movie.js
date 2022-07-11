@@ -1,30 +1,32 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 
+const errorMessage = '{PATH} - обязательное поле. ';
+
 const movieSchema = new mongoose.Schema({
   country: {
     type: String,
-    required: [true, '{PATH} - обязательное поле. '],
+    required: [true, errorMessage],
   },
   director: {
     type: String,
-    required: [true, '{PATH} - обязательное поле. '],
+    required: [true, errorMessage],
   },
   duration: {
     type: Number,
-    required: [true, '{PATH} - обязательное поле. '],
+    required: [true, errorMessage],
   },
   year: {
     type: String,
-    required: [true, '{PATH} - обязательное поле. '],
+    required: [true, errorMessage],
   },
   description: {
     type: String,
-    required: [true, '{PATH} - обязательное поле. '],
+    required: [true, errorMessage],
   },
   image: {
     type: String,
-    required: [true, '{PATH} - обязательное поле. '],
+    required: [true, errorMessage],
     validate: {
       validator: (v) => validator.isURL(v),
       message: 'Недопустимый формат ссылки',
@@ -32,7 +34,7 @@ const movieSchema = new mongoose.Schema({
   },
   trailerLink: {
     type: String,
-    required: [true, '{PATH} - обязательное поле. '],
+    required: [true, errorMessage],
     validate: {
       validator: (v) => validator.isURL(v),
       message: 'Недопустимый формат ссылки',
@@ -40,7 +42,7 @@ const movieSchema = new mongoose.Schema({
   },
   thumbnail: {
     type: String,
-    required: [true, '{PATH} - обязательное поле. '],
+    required: [true, errorMessage],
     validate: {
       validator: (v) => validator.isURL(v),
       message: 'Недопустимый формат ссылки',
@@ -49,16 +51,16 @@ const movieSchema = new mongoose.Schema({
   owner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'user',
-    required: [true, '{PATH} - обязательное поле. '],
+    required: [true, errorMessage],
   },
   movieId: {
     type: Number,
-    required: [true, '{PATH} - обязательное поле. '],
+    required: [true, errorMessage],
   },
   nameRU: {
     type: String,
     minlength: 2,
-    required: [true, '{PATH} - обязательное поле. '],
+    required: [true, errorMessage],
     validate: {
       // plan B validation
       // validator(v) {
@@ -71,7 +73,7 @@ const movieSchema = new mongoose.Schema({
   nameEN: {
     type: String,
     minlength: 2,
-    required: [true, '{PATH} - обязательное поле. '],
+    required: [true, errorMessage],
     validate: {
       validator: (v) => validator.isIn(v, /[\w.:!?"«»;@%№()*#,\s]/gi),
       message: 'Недопустимое имя фильма',
