@@ -4,17 +4,17 @@ const cors = require('cors');
 const helmet = require('helmet');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-// const cookieParser = require('cookie-parser');
 const { errors } = require('celebrate');
 
 const {
   PORT = 3000,
-  MONGO_DB = 'mongodb://localhost:27017/bitfilmsdb',
+  MONGO_DB = 'mongodb://localhost:27017/moviesdb',
   FRONTEND_ADDRESS = 'https://fin.nomoredomains.xyz',
 } = process.env;
 const routes = require('./routes');
 const errorHandler = require('./middlewares/errhandler');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
+const limiter = require('./middlewares/rateLimit');
 
 const app = express();
 const corsOptions = {
@@ -22,13 +22,14 @@ const corsOptions = {
   optionsSuccessStatus: 200,
   credentials: true,
 };
-app.use(requestLogger);
-app.use(helmet());
 app.use(cors(corsOptions));
+
+app.use(requestLogger);
+app.use(limiter);
+app.use(helmet());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-// app.use(cookieParser());
 app.use(routes);
 
 app.use(errorLogger);

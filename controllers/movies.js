@@ -1,6 +1,6 @@
 const Movie = require('../models/movie');
 const {
-  BadRequest, NotFound, Forbidden,
+  BadRequest, NotFound, Conflict,
 } = require('../errors');
 const { prepareValidationMessage } = require('../utils');
 
@@ -54,7 +54,7 @@ const deleteMovie = (req, res, next) => {
       if (!movie) {
         throw new NotFound('Фильм с указанным id не найден.');
       } if (!movie.owner.equals(req.user._id)) {
-        throw new Forbidden('Запрещено удалять фильмы из чужой коллекции');
+        throw new Conflict('Запрещено удалять фильмы из чужой коллекции');
       }
       return movie.remove()
         .then(() => res.send(movie));

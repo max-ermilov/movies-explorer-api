@@ -63,11 +63,11 @@ const movieSchema = new mongoose.Schema({
     required: [true, errorMessage],
     validate: {
       // plan B validation
-      // validator(v) {
-      //   return /[а-я.:!?"«»;@%№()*#,ё\s]/gi.test(v);
-      // },
-      validator: (v) => validator.isIn(v, /[а-я.:!?"«»;@%№()*#,ё\s]/gi),
-      message: 'Недопустимое имя фильма',
+      validator(v) {
+        return /[А-Яа-я.:!?"«»;@%№()*#,ё\s]/gi.test(v);
+      },
+      // validator: (v) => validator.isIn(v, /[А-Яа-я.:!?"«»;@%№()*#,ё\s]/gi),
+      message: 'Недопустимое имя фильма RU. ',
     },
   },
   nameEN: {
@@ -75,8 +75,11 @@ const movieSchema = new mongoose.Schema({
     minlength: 2,
     required: [true, errorMessage],
     validate: {
-      validator: (v) => validator.isIn(v, /[\w.:!?"«»;@%№()*#,\s]/gi),
-      message: 'Недопустимое имя фильма',
+      validator(v) {
+        return /[\w\-.:!?"«»;@%№()*#,\s]/gi.test(v);
+      },
+      // validator: (v) => validator.isIn(v, /[\w\-.:!?"«»;@%№()*#,\s]/gi),
+      message: 'Недопустимое имя фильма EN. ',
     },
   },
 });
