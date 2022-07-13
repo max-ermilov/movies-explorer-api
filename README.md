@@ -3,7 +3,7 @@
 
 ## **Описание:**
 
-REST API для Дипломной работы, связанное с базой данных MongoDB. При запуске приложение подключается к серверу mongo по адресу: `mongodb://localhost:27017/bitfilmsdb`.
+REST API для Дипломной работы, связанное с базой данных MongoDB. При запуске приложение подключается к серверу mongo по адресу: `mongodb://localhost:27017/moviesdb`.
 
 ## Домен API:
 ### [https://api.nomorepartiesxyz.ru](https://api.nomorepartiesxyz.ru)
