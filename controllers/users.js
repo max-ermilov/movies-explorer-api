@@ -78,6 +78,8 @@ const updateUser = (req, res, next) => {
     .catch((err) => {
       if (err.name === 'ValidationError') {
         return next(new BadRequest(prepareValidationMessage(err)));
+      } if (err.code === 11000) {
+        return next(new Conflict('Невозможно обновить данные другого пользователя'));
       }
       return next(err);
     });
